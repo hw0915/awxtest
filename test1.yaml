@@ -5,6 +5,11 @@
   become: true
 
   tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
     - name: Create Docker service for Nginx
       command: >
         docker service create
