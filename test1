@@ -1,0 +1,18 @@
+---
+- name: Deploy Nginx Service in Docker Swarm
+  hosts: localhost
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Create Docker service for Nginx
+      command: >
+        docker service create
+        --name test1
+        --replicas 3
+        --constraint "node.role==worker"
+        --with-registry-auth
+        -p 8001:80
+        nginx
+      ignore_errors: yes
+      changed_when: false
